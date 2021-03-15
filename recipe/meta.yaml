@@ -12,6 +12,9 @@ source:
 
 build:
   skip: true  # [py27]
+  # skipping win-32 because it's not clear that it is actually supported
+  # https://github.com/MagicStack/immutables/issues/50
+  skip: true  # [win32]
   number: 0
   script: python -m pip install . --no-deps --ignore-installed
 
