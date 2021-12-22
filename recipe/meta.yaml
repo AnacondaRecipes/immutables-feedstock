@@ -12,10 +12,7 @@ source:
 
 build:
   skip: true  # [py<36]
-  # skipping win-32 because it's not clear that it is actually supported
-  # https://github.com/MagicStack/immutables/issues/50
-  skip: true  # [win32]
-  number: 0
+  number: 1
   script: python -m pip install . --no-deps --ignore-installed
 
 requirements:
@@ -36,7 +33,7 @@ test:
   # Which is strange given the tests directory is being copied.
   # Dropping running tests for now until someone takes the time to look into it.
   # requires:
-  #   - flake8 =3.8.4
+  #   - flake8 >=3.8.4
   #   - pycodestyle >=2.6.*
   #   - mypy >=0.910
   #   - pytest >=6.2.4
@@ -53,8 +50,9 @@ test:
 
 about:
   home: https://github.com/MagicStack/immutables
-  license: Apache-2.0
-  license_family: APACHE
+  # See https://github.com/MagicStack/immutables/blob/v0.16/LICENSE
+  license: Apache-2.0 AND MIT
+  license_family: Apache
   license_file: LICENSE
   summary: Immutable Collections
   description: An immutable mapping type for Python.
