@@ -50,7 +50,8 @@ test:
 
 about:
   home: https://github.com/MagicStack/immutables
-  license: Apache-2.0
+  # See https://github.com/MagicStack/immutables/blob/v0.16/LICENSE
+  license: Apache-2.0 AND MIT
   license_family: Apache
   license_file: LICENSE
   summary: Immutable Collections
