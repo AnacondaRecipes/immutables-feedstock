@@ -17,6 +17,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c')}}
   host:
     - python
     - pip
@@ -24,7 +25,6 @@ requirements:
     - wheel
   run:
     - python
-    - typing-extensions >=3.7.4.3  # [py<38]
 
 test:
   # As per Maintainer,Since immutables introduced mypy testing, the mypy plugin fails with this error:
