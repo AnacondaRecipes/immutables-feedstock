@@ -1,0 +1,28 @@
+diff --git a/tests/test-data/check-immu.test b/tests/test-data/check-immu.test
+index 2ee32f1..bbbfe11 100644
+--- a/tests/test-data/check-immu.test
++++ b/tests/test-data/check-immu.test
+@@ -45,19 +45,19 @@ def update() -> None:
+ 
+     m_int__str.update({1: '2'})
+     m_int__str.update({1: '2'}, three='4')  # E: Unexpected keyword argument "three" for "update" of "Map"
+-    m_int__str.update({1: 2})  # E: Argument 1 to "update" of "Map" has incompatible type "Dict[int, int]"; expected "Union[IterableItems[int, str], Iterable[Tuple[int, str]]]"
++    m_int__str.update({1: 2})  # E: Argument 1 to "update" of "Map" has incompatible type "dict[int, int]"; expected "Union[IterableItems[int, str], Iterable[tuple[int, str]]]"
+ 
+     m_str__str.update({'1': '2'})
+     m_str__str.update({'1': '2'}, three='4')
+-    m_str__str.update({'1': 2})  # E: Argument 1 to "update" of "Map" has incompatible type "Dict[str, int]"; expected "Union[IterableItems[str, str], Iterable[Tuple[str, str]]]"
++    m_str__str.update({'1': 2})  # E: Argument 1 to "update" of "Map" has incompatible type "dict[str, int]"; expected "Union[IterableItems[str, str], Iterable[tuple[str, str]]]"
+ 
+     m_int_str__str.update(cast(Dict[Union[int, str], str], {1: '2', '3': '4'}))
+     m_int_str__str.update({1: '2'}, three='4')
+-    m_int_str__str.update({'1': 2})  # E: Argument 1 to "update" of "Map" has incompatible type "Dict[str, int]"; expected "Union[IterableItems[Union[int, str], str], Iterable[Tuple[Union[int, str], str]]]"
++    m_int_str__str.update({'1': 2})  # E: Argument 1 to "update" of "Map" has incompatible type "dict[str, int]"; expected "Union[IterableItems[Union[int, str], str], Iterable[tuple[Union[int, str], str]]]"
+ 
+     m_str__int_str.update({'1': 2, '2': 3})
+     m_str__int_str.update({'1': 2, '2': 3}, four='5')
+-    m_str__int_str.update({1: 2})  # E: Argument 1 to "update" of "Map" has incompatible type "Dict[int, int]"; expected "Union[IterableItems[str, Union[int, str]], Iterable[Tuple[str, Union[int, str]]]]"
++    m_str__int_str.update({1: 2})  # E: Argument 1 to "update" of "Map" has incompatible type "dict[int, int]"; expected "Union[IterableItems[str, Union[int, str]], Iterable[tuple[str, Union[int, str]]]]"
+ 
+ def mutate() -> None:
+     m = Map[str, str]()

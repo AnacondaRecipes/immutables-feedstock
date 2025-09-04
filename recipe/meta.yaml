@@ -1,23 +1,25 @@
 {% set name = "immutables" %}
-{% set version = "0.16" %}
+{% set version = "0.21" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d67e86859598eed0d926562da33325dac7767b7b1eff84e232c22abea19f4360
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: b55ffaf0449790242feb4c56ab799ea7af92801a0a43f9e2f4f8af2ab24dfc4a
+  patches:
+    - patches/python_39_types_capitalization.patch  # [py>=39]
 
 build:
-  skip: true  # [py<36]
-  number: 1
-  script: python -m pip install . --no-deps --ignore-installed
+  skip: true  # [py<38]
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
   host:
     - python
     - pip
@@ -25,39 +27,29 @@ requirements:
     - wheel
   run:
     - python
-    - typing-extensions >=3.7.4.3  # [py<38]
 
 test:
-  # As per Maintainer,Since immutables introduced mypy testing, the mypy plugin fails with this error:
-  #   FileNotFoundError: [Errno 2] No such file or directory: '$SRC_DIR/tests/test-data/check-immu.test'
-  # Which is strange given the tests directory is being copied.
-  # Dropping running tests for now until someone takes the time to look into it.
-  # requires:
-  #   - flake8 >=3.8.4
-  #   - pycodestyle >=2.6.*
-  #   - mypy >=0.910
-  #   - pytest >=6.2.4
-  # source_files:
-  #   - tests
-  
+  source_files:
+    - tests
   imports:
     - immutables
   requires:
     - pip
+    - pytest >=7.4,<8
+    - mypy >=1.4,<2
   commands:
-  #  - pytest tests
     - pip check
+    - pytest -vv tests
 
 about:
   home: https://github.com/MagicStack/immutables
-  # See https://github.com/MagicStack/immutables/blob/v0.16/LICENSE
-  license: Apache-2.0 AND MIT
+  license: Apache-2.0 AND 0BSD
   license_family: Apache
   license_file: LICENSE
   summary: Immutable Collections
-  description: An immutable mapping type for Python.
+  description: A high-performance immutable mapping type for Python.
   dev_url: https://github.com/MagicStack/immutables
-  doc_url: https://github.com/MagicStack/immutables/blob/master/README.rst
+  doc_url: https://github.com/MagicStack/immutables
 
 extra:
   recipe-maintainers:
