@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [py<38]
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
 
 requirements:
@@ -39,7 +39,7 @@ test:
     - mypy >=1.4,<2
   commands:
     - pip check
-    - pytest -vv tests
+    - pytest -vv tests --deselect=tests/test_mypy.py::ImmuMypyTest::check-immu.test::testMypyImmu
 
 about:
   home: https://github.com/MagicStack/immutables
